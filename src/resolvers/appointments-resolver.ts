@@ -10,6 +10,7 @@ export class AppointmentsResolver {
         return [{
             startsAt: new Date(),
             endsAt: new Date(),
+            customerId: '1'
         }];
     }
 
@@ -18,13 +19,14 @@ export class AppointmentsResolver {
         const appointment = {
             startsAt: data.startsAt,
             endsAt: data.endsAt,
+            name: data.name
         }
         return appointment;
     }
     
     @FieldResolver(() => Customer)
     async customer(@Root() appointment: AppointmentModel) {
-        console.log(appointment)
+        console.log(appointment.customerId)
 
         return {
             name: 'Caio',

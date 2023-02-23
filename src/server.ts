@@ -17,7 +17,7 @@ async function bootstrap() {
 
     const { url } = await server.listen()
 
-    console.log(`teste ${url}`)
+    console.log(`${url}`)
     
 }
 

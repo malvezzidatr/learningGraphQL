@@ -5,13 +5,16 @@
 
 type AppointmentModel {
   customer: Customer!
+  customerId: String!
   endsAt: DateTime!
+  name: String!
   startsAt: DateTime!
 }
 
 input CreateAppointmentInput {
   customerId: String!
   endsAt: DateTime!
+  name: String!
   startsAt: DateTime!
 }
 
