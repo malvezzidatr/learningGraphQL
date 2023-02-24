@@ -15,9 +15,11 @@ export class UserResolver {
     }
 
     @Mutation(() => User)
-    async createUser(@Arg('name') name: string) {
+    async createUser(
+        @Arg('name') name: string, 
+        @Arg('id') id: string) {
         const user = {
-            id: randomUUID(),
+            id: id,
             name: name
         }
 
