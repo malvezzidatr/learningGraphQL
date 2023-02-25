@@ -1,3 +1,0 @@
-const username = 'guruapp'
-const password = 't33dCzoyge81zggz'
-const MONGODB = `mongodb+srv://${username}:${password}@guru.vo6kvqc.mongodb.net/?retryWrites=true&w=majority`
