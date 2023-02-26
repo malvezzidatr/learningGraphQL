@@ -2,7 +2,7 @@ type Post {
     _id: ID!
     title: String!
     content: String!
-    author: Post!
+    author: User!
 }
 
 input PostInput {

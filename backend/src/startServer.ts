@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 
 const username = 'guruapp'
 const password = 't33dCzoyge81zggz'
-const MONGODB = `mongodb+srv://${username}:${password}@guru.vo6kvqc.mongodb.net/?retryWrites=true&w=majority`
+const MONGODB = `mongodb+srv://${username}:${password}@guru.vo6kvqc.mongodb.net/guru?retryWrites=true&w=majority`
 
 function startServer({ typeDefs, resolvers }) {
-    mongoose.connect(MONGODB)
+    mongoose.connect(MONGODB);
 
     const server = new ApolloServer({ typeDefs, resolvers});
     server.listen().then(({ url }) => console.log(`🐱‍🏍 server started at ${url} 🐱‍🏍`))
