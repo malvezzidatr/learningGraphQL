@@ -8,7 +8,9 @@ const MONGODB = `mongodb+srv://${username}:${password}@guru.vo6kvqc.mongodb.net/
 function startServer({ typeDefs, resolvers }) {
     mongoose.connect(MONGODB);
 
-    const server = new ApolloServer({ typeDefs, resolvers});
+
+    const pubsub = new PubSub();
+    const server = new ApolloServer({ typeDefs, resolvers });
     server.listen().then(({ url }) => console.log(`🐱‍🏍 server started at ${url} 🐱‍🏍`))
 }
 
