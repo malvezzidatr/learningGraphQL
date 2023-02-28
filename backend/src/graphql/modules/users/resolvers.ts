@@ -1,5 +1,4 @@
 import User from "../../../models/User";
-import { USER_ADDED } from "./channels";
 
 export default {
     User: {
@@ -12,23 +11,13 @@ export default {
     },
 
     Mutation: {
-        createUser: async (_, { data }, { pubsub }) => {
+        createUser: async (_, { data }) => {
+            console.log(data)
             const user = await User.create(data);
-
-            pubsub.publish(USER_ADDED, {
-                userAdded: user,
-            });
-
             return user;
         
         },
         updateUser: async (_, { id, data}) => await User.findOneAndUpdate(id, data, { new: true }),
         deleteUser: async (_, { id }) => !!(await User.findOneAndDelete(id))
     },
-
-    Subscription: {
-        userAdded: {
-            subscribe: (obj, args, { pubsub }) => pubsub.asyncInterator(USER_ADDED)
-        }
-    }
 };

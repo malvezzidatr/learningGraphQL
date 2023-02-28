@@ -1,32 +1,37 @@
 import { FormEvent, useState } from "react"
 import { gql, useMutation } from '@apollo/client';
 import { GET_USER } from "../App";
-import { client } from "../lib/apollo";
 
 const CREATE_USER = gql`
-    mutation ($name: String!, $id: String!) {
-        createUser(name: $name, id: $id) {
-            id
-            name
+    mutation ($firstName: String!, $lastName: String!, $email: String!, $active: Boolean!) {
+        createUser(firstName: $firstName, lastName: $lastName, email: $email, active: $active) {
+            firstName
+            lastName
         }
     }
 `
 
 export function NewUserForm() {
-    const [name, setName] = useState<string>('');
-    const [id, setId] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [active, setActive] = useState<boolean>(false);
     const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
     
     async function handleCreateUser(event: FormEvent) {
         event?.preventDefault()
-        if(!name) {
+        if(!firstName) {
             return
         }
 
         await createUser({
             variables: {
-                name,
-                id
+                data: {
+                    firstName,
+                    lastName,
+                    email,
+                    active
+                }
             },
             refetchQueries: [GET_USER]
             // update: (cache, { data: { createUser } }) => {
@@ -52,8 +57,11 @@ export function NewUserForm() {
 
     return (
         <form onSubmit={handleCreateUser}>
-            <input type='text' value={name} onChange={e => setName(e.target.value)} />
-            <input type='text' value={id} onChange={e => setId(e.target.value)} />
+            <input type='text' value={firstName} onChange={e => setFirstName(e.target.value)} />
+            <input type='text' value={lastName} onChange={e => setLastName(e.target.value)} />
+            <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
+            <input type='checkbox' onChange={e => setActive(e.target.checked)} />
+            {console.log(active)}
             <button type="submit">Enviar</button>
         </form>
     )
